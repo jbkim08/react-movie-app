@@ -1,35 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import MovieList from "./components/MovieList";
 
 function App() {
-  const [movies, setMovies] = useState([
-    {
-      Title: "The Lord of the Rings: The Return of the King",
-      Year: "2003",
-      imdbID: "tt0167260",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
-    },
-    {
-      Title: "The Lion King",
-      Year: "1994",
-      imdbID: "tt0110357",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BYTYxNGMyZTYtMjE3MS00MzNjLWFjNmYtMDk3N2FmM2JiM2M1XkEyXkFqcGdeQXVyNjY5NDU4NzI@._V1_SX300.jpg",
-    },
-    {
-      Title: "King Kong",
-      Year: "2005",
-      imdbID: "tt0360717",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjYxYmRlZWYtMzAwNC00MDA1LWJjNTItOTBjMzlhNGMzYzk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    },
-  ]);
+  const [movies, setMovies] = useState([]);
+
+  //검색어로 영화데이터 요청 async/await는 쌍으로 사용
+  const getMovieRequest = async (searchValue) => {
+    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=6bfc4a64`;
+    //자바스크립트는 비동기므로 await를 붙여서 영화데이터를 다받고 다음코드 실행
+    const response = await fetch(url);
+    const responseJson = await response.json();
+    setMovies(responseJson.Search);
+  };
+
+  //앱 시작시 한번 함수 실행
+  useEffect(() => {
+    getMovieRequest("star wars");
+  }, []);
+
   return (
     <div className="container-fluid movie-app">
       <div className="row">
