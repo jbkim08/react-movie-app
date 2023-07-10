@@ -57,13 +57,17 @@ function App() {
         <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
       </div>
       <ScrollContainer className="row scroll-container">
-        <MovieList movies={movies} handleClick={addFavouriteMovie} />
+        <MovieList
+          movies={movies}
+          handleClick={addFavouriteMovie}
+          addMovie={true}
+        />
       </ScrollContainer>
       <div className="row align-items-center my-4">
         <MovieListHeading heading="내 선호작" />
       </div>
       <ScrollContainer className="row scroll-container">
-        <MovieList movies={favourites} />
+        <MovieList movies={favourites} addMovie={false} />
       </ScrollContainer>
     </div>
   );
