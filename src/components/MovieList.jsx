@@ -4,7 +4,9 @@ const MovieList = (props) => {
   return (
     <>
       {props.movies.map((movie) => (
-        <img src={movie.Poster} alt="movie"></img>
+        <div className="d-flex m-3" key={movie.imdbID}>
+          <img src={movie.Poster} alt="movie"></img>
+        </div>
       ))}
     </>
   );
